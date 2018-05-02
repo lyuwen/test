@@ -12,6 +12,7 @@ matrix:
 
 env:
   global:
+    - WORKSPACE: ${TRAVIS_BUILD_DIR}
     - PYTHONPATH: ${WORKSPACE}/pylib
   matrix:
     - ENVSYS=conda
