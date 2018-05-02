@@ -1,0 +1,49 @@
+language: python
+
+os:
+  - linux
+
+# It appears python is not yet supported on osx
+#  - osx
+
+matrix:
+  allow_failures:
+  - python: "2.6"
+
+env:
+  global:
+    - PATH=$HOME/miniconda2/bin:$PATH
+  matrix:
+    - ENVSYS=conda
+    - ENVSYS=pypi
+
+cache: pip
+
+virtualenv:
+  system_site_packages: true
+
+python:
+  - "2.6"
+  - "2.7"
+
+# command to install dependencies
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update                                            ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y gcc gfortran libblas-dev liblapack-dev ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx"   ]]; then brew install gcc gfortran scalapack ; fi
+  - if [[ "$ENVSYS" == "conda" ]]; then wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh; fi
+  - if [[ "$ENVSYS" == "conda" ]]; then chmod +x miniconda.sh; fi
+  - if [[ "$ENVSYS" == "conda" ]]; then ./miniconda.sh -b; fi
+  - if [[ "$ENVSYS" == "conda" ]]; then conda update --yes -q conda; fi
+  - if [[ "$ENVSYS" == "conda" ]]; then conda config --set always_yes true; fi
+  - if [[ "$ENVSYS" == "conda" ]]; then conda config --set anaconda_upload no; fi
+  - if [[ "$ENVSYS" == "conda" ]]; then conda install -q python=$TRAVIS_PYTHON_VERSION pip requests conda-build; fi
+
+install:
+  - python -m pip install -U -r requirements.txt
+
+# command to run tests
+script: |
+  which python
+  python code.py
+
