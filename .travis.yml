@@ -12,7 +12,7 @@ matrix:
 
 env:
   global:
-    - PATH=$HOME/miniconda2/bin:$PATH
+    - PYTHONPATH: ${WORKSPACE}/pylib
   matrix:
     - ENVSYS=conda
     - ENVSYS=pypi
