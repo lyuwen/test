@@ -34,6 +34,7 @@ before_install:
   - if [[ "$ENVSYS" == "conda" ]]; then wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh; fi
   - if [[ "$ENVSYS" == "conda" ]]; then chmod +x miniconda.sh; fi
   - if [[ "$ENVSYS" == "conda" ]]; then ./miniconda.sh -b; fi
+  - if [[ "$ENVSYS" == "conda" ]]; then export PATH=$HOME/miniconda2/bin:$PATH; fi
   - if [[ "$ENVSYS" == "conda" ]]; then conda update --yes -q conda; fi
   - if [[ "$ENVSYS" == "conda" ]]; then conda config --set always_yes true; fi
   - if [[ "$ENVSYS" == "conda" ]]; then conda config --set anaconda_upload no; fi
