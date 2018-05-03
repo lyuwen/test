@@ -2,13 +2,14 @@ language: python
 
 os:
   - linux
-
+  - osx
 # It appears python is not yet supported on osx
-#  - osx
+
 
 matrix:
   allow_failures:
   - python: "2.6"
+  - os: osx
 
 env:
   global:
@@ -21,7 +22,7 @@ env:
 cache: pip
 
 virtualenv:
-  system_site_packages: true
+  system_site_packages: false
 
 python:
   - "2.6"
